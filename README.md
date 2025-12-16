@@ -1,15 +1,68 @@
 
-# Predictive Maintenance - Valve Condition
+# Maintenance Prédictive -  Condition de la Valve
+
+## Contexte
+Ce projet vise à mettre en place un système de maintenance prédictive pour des machines industrielles. L’objectif est de prédire si la condition de la valve est optimale (=100%) ou non pour chaque cycle de production, afin d’anticiper les défaillances et optimiser la maintenance.
 
 ## Objectif
 Prédire si la condition de la valve est optimale (100%) ou non pour chaque cycle.
+- Construire un modèle de Machine Learning pour prédire la condition de la valve.
+- Utiliser les 2000 premiers cycles pour l’entraînement et le reste pour le test.
+- Déployer une API FastAPI permettant de faire une prédiction pour un cycle donné.
+
+## Données
+Les données proviennent du dataset UCI :
+https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems
+
+Fichiers utilisés :
+- PS2.txt : Pression (bar) échantillonnée à 100 Hz
+- FS1.txt : Débit volumique (l/min) échantillonné à 10 Hz
+- profile.txt : Variables de profil dont la condition de la valve
 
 ## Structure
+- `data/` : Fichiers sources (FS1, PS2, profile)
 - `src/` : code source (prétraitement, modèle, API)
 - `tests/` : tests unitaires
 - `Dockerfile` : containerisation
 - `requirements.txt` : dépendances
 
-## Installation
+├── data/                # Fichiers sources (FS1.txt, PS2.txt, profile.txt)
+├── src/                 # Code source (prétraitement, modèle, API)
+│   ├── app.py           # API FastAPI
+│   └── preprocessing.py # Fonctions de prétraitement
+│   └── model.py         # Modèles testés
+│   └── train.py         # Entrainement des modèles
+├── tests/               # Tests unitaires
+├── pipeline.pkl         # Pipeline ML sauvegardé
+├── requirements.txt     # Dépendances Python
+├── Dockerfile           # Containerisation
+└── README.md            # Documentation
+
+## Modèle utilisé: XGboost
+### Évaluation du modèle :
+####   Accuracy   F1 Score   Precision   Recall   ROC AUC
+####     0.98      0.981       0.981     0.981     0.997
+
+## Installation et exécution
+
 ```bash
+git clone <URL_DU_REPO>
+cd <nom_du_projet>
+
 pip install -r requirements.txt
+
+uvicorn src.app:app --reload --host 0.0.0.0 --port 8000
+```
+## Accéder à la documentation interactive :
+http://localhost:8000/docs
+
+## Construire l'image mon-api-pred-maintenance:latest
+
+```bash
+docker build -t mon-api-pred-maintenance .
+docker run -d -p 8000:8000 mon-api-pred-maintenance:latest
+```
+## Exemple de requête API pour le cycle 5
+```bash
+curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{"cycle": 5}'
+```

@@ -1,18 +1,18 @@
 
-import joblib
+from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 
-def train_model(X_train, y_train, model_path="model.pkl"):
-    #model = RandomForestClassifier(n_estimators=100, random_state=42)
-    model = XGBClassifier(eval_metric='logloss')
-    model.fit(X_train, y_train)
-    joblib.dump(model, model_path)
-    return model
-
-def load_model(model_path="model.pkl"):
-    return joblib.load(model_path)
-
-def predict_cycle(model, X_cycle):
-    return model.predict([X_cycle])[0]
-
+def get_model(model_type="logistic"):
+    """
+    Retourne un modèle en fonction du type choisi.
+    model_type : 'logistic', 'random_forest', 'xgboost'
+    """
+    if model_type == "logistic":
+        return LogisticRegression(max_iter=1000, random_state=42)
+    elif model_type == "random_forest":
+        return RandomForestClassifier(n_estimators=100, random_state=42)
+    elif model_type == "xgboost":
+        return XGBClassifier(eval_metric='logloss', random_state=42)
+    else:
+        raise ValueError(f"Type de modèle inconnu : {model_type}")

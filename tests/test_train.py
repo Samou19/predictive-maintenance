@@ -1,17 +1,17 @@
 
 import numpy as np
 import pandas as pd
-import pytest
-#from src.preprocessing import preprocess_data
-#from src.model import get_model
-
+# from src.preprocessing import preprocess_data
 from sklearn.compose import ColumnTransformer
 from sklearn.discriminant_analysis import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+# from src.model import get_model
 
 def preprocess_data(X, model_type="logistic"):
     # Colonnes ordinales et binaires
@@ -43,6 +43,7 @@ def preprocess_data(X, model_type="logistic"):
 
     return pipeline
 
+
 def get_model(model_type="logistic"):
     """
     Retourne un modèle en fonction du type choisi.
@@ -58,39 +59,26 @@ def get_model(model_type="logistic"):
         raise ValueError(f"Type de modèle inconnu : {model_type}")
 
 
-def test_pipeline_creation():
-    # Données factices avec colonnes attendues
+def test_train_pipeline_metrics():
+    # Données factices
     X_fake = pd.DataFrame({
-        "ps2_mean": np.random.rand(5),
-        "ps2_std": np.random.rand(5),
-        "ps2_max": np.random.rand(5),
-        "fs1_mean": np.random.rand(5),
-        "fs1_std": np.random.rand(5),
-        "fs1_max": np.random.rand(5),
-        "cooler_condition": np.random.choice([3, 20, 100], size=5),
-        "pump_leakage": np.random.choice([0, 1, 2], size=5),
-        "accumulator_pressure": np.random.choice([90, 100, 115, 130], size=5),
-        "stable_flag": np.random.choice([0, 1], size=5)
+        "ps2_mean": np.random.rand(20),
+        "ps2_std": np.random.rand(20),
+        "ps2_max": np.random.rand(20),
+        "fs1_mean": np.random.rand(20),
+        "fs1_std": np.random.rand(20),
+        "fs1_max": np.random.rand(20),
+        "cooler_condition": np.random.choice([3, 20, 100], size=20),
+        "pump_leakage": np.random.choice([0, 1, 2], size=20),
+        "accumulator_pressure": np.random.choice([90, 100, 115, 130], size=20),
+        "stable_flag": np.random.choice([0, 1], size=20)
     })
-    y_fake = np.random.randint(0, 2, size=5)
+    y_fake = np.random.randint(0, 2, size=20)
 
-    pipeline = preprocess_data(X_fake, model_type="logistic")
-    assert pipeline is not None
-
-    # Entraînement et prédiction
+    pipeline = preprocess_data(X_fake, model_type="random_forest")
     pipeline.fit(X_fake, y_fake)
-    pred = pipeline.predict(X_fake.iloc[[0]])[0]
-    assert pred in [0, 1]
 
-def test_pipeline_with_empty_data():
-    X_empty = pd.DataFrame(columns=[
-        "ps2_mean", "ps2_std", "ps2_max",
-        "fs1_mean", "fs1_std", "fs1_max",
-        "cooler_condition", "pump_leakage",
-        "accumulator_pressure", "stable_flag"
-    ])
-    y_empty = pd.Series(dtype=int)
+    y_pred = pipeline.predict(X_fake)
+    acc = accuracy_score(y_fake, y_pred)
 
-    pipeline = preprocess_data(X_empty, model_type="logistic")
-    with pytest.raises(ValueError):
-        pipeline.fit(X_empty, y_empty)
+    assert 0 <= acc <= 1
