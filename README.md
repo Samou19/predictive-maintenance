@@ -26,22 +26,15 @@ Fichiers utilisés :
 - `Dockerfile` : containerisation
 - `requirements.txt` : dépendances
 
-├── data/                # Fichiers sources (FS1.txt, PS2.txt, profile.txt)
-├── src/                 # Code source (prétraitement, modèle, API)
-│   ├── app.py           # API FastAPI
-│   └── preprocessing.py # Fonctions de prétraitement
-│   └── model.py         # Modèles testés
-│   └── train.py         # Entrainement des modèles
-├── tests/               # Tests unitaires
-├── pipeline.pkl         # Pipeline ML sauvegardé
-├── requirements.txt     # Dépendances Python
-├── Dockerfile           # Containerisation
-└── README.md            # Documentation
 
-## Modèle utilisé: XGboost
-### Évaluation du modèle :
-####   Accuracy   F1 Score   Precision   Recall   ROC AUC
-####     0.98      0.981       0.981     0.981     0.997
+## Modèle utilisé: XGBoost
+Après avoir testé et comparé les modèles XGBoost, régression logistique et Random Forest, XGBoost offre les meilleures performances. Les résultats obtenus sont présentés ci-dessous.
+### Évaluation du modèle XGBoost:
+- `Accuracy` : 0.98
+- `Precision` : 0.981 
+- `Recall` : 0.981
+- `F1 Score` : 0.981
+- `ROC AUC` : 0.997
 
 ## Installation et exécution
 
@@ -56,11 +49,11 @@ uvicorn src.app:app --reload --host 0.0.0.0 --port 8000
 ## Accéder à la documentation interactive :
 http://localhost:8000/docs
 
-## Construire l'image mon-api-pred-maintenance:latest
+## Construire une image <NOM-IMAGE>
 
 ```bash
-docker build -t mon-api-pred-maintenance .
-docker run -d -p 8000:8000 mon-api-pred-maintenance:latest
+docker build -t <NOM-IMAGE> .
+docker run -d -p 8000:8000 <NOM-IMAGE>:latest
 ```
 ## Exemple de requête API pour le cycle 5
 ```bash
