@@ -8,3 +8,5 @@ services:
     dockerContext: .
     autoDeploy: true
     healthCheckPath: /healthz
+    envVars:
+      - key: PORT
