@@ -1,5 +1,5 @@
 
-name: CI/CD MYFastAPI
+name: CI/CD predictive-maintenance
 
 on:
   push:
