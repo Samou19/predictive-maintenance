@@ -72,7 +72,7 @@ def test_pipeline_creation():
         "accumulator_pressure": np.random.choice([90, 100, 115, 130], size=5),
         "stable_flag": np.random.choice([0, 1], size=5)
     })
-    y_fake = np.random.randint(0, 2, size=5)
+    y_fake = np.array([0, 1, 0, 1, 0])
 
     pipeline = preprocess_data(X_fake, model_type="logistic")
     assert pipeline is not None
