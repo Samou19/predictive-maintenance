@@ -32,7 +32,7 @@ jobs:
           pytest --maxfail=1 --disable-warnings -q
 
   # -------------------------
-  # 2. Job : Déploiement sur Render
+  # 2. Job : Déploiement sur Render OK
   # -------------------------
   deploy-render:
     runs-on: ubuntu-latest
