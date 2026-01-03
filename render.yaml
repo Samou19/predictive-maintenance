@@ -1,10 +1,16 @@
-
-services:
-  - type: web
-    name: predictive-maintenance
-    env: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
-    dockerContext: .
-    autoDeploy: true
-    healthCheckPath: /healthz
+# Exported from Render on 2026-01-03T21:32:43Z
+version: "1"
+projects:
+- name: My project
+  environments:
+  - name: Production
+    services:
+    - type: web
+      name: predictive-maintenance
+      runtime: docker
+      repo: https://github.com/Samou19/predictive-maintenance
+      plan: free
+      region: frankfurt
+      dockerContext: .
+      dockerfilePath: ./Dockerfile
+      autoDeployTrigger: commit
