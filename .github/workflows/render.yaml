@@ -1,0 +1,11 @@
+
+services:
+  - type: web
+    name: fastapi-ml-app
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: PORT
+       
