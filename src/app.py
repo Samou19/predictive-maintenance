@@ -76,7 +76,10 @@ def load_and_preprocess(ps2_file, fs1_file, profile_file):
     return X, y
 
 # Initialiser l'application FastAPI
-app = FastAPI(title="API Maintenance Prédictive", description="Prédiction de la condition de la valve", version="1.0")
+app = FastAPI(
+    title="API Maintenance Prédictive", 
+    description="Prédiction de la condition de la valve", 
+    version="1.0")
 
 # Charger le pipeline et les données
 pipeline = joblib.load("pipeline.pkl")
@@ -86,11 +89,11 @@ X, y = load_and_preprocess("PS2.txt", "FS1.txt", "profile.txt")
 class CycleRequest(BaseModel):
     cycle: int
 
-@app.get("/")
+@app.get("/", summary="Accueil", description="Page d'accueil de l'API")
 def home():
     return {"message": "Bienvenue sur l'API de maintenance prédictive"}
 
-@app.post("/predict")
+@app.post("/predict", summary="Prédire la condition de la valve", description="Faire une prédiction pour un cycle donné")
 def predict(request: CycleRequest):
     cycle_num = request.cycle
 
@@ -109,9 +112,9 @@ def predict(request: CycleRequest):
     proba = float(pipeline.predict_proba(cycle_features)[0][1])
 
     return {
-        "numero_cycle": cycle_num,
-        "prediction": "Optimal" if prediction == 1 else "Non optimal",
-        "probabilite": round(proba, 3)
+        "Numéro du cycle": cycle_num,
+        "prédiction": "Optimal" if prediction == 1 else "Non optimal",
+        "probabilité": round(proba, 3)
     }
 if __name__ == "__main__":
     import uvicorn
