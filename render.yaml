@@ -1,11 +1,10 @@
 
 services:
   - type: web
-    name: fastapi-ml-app
+    name: predictive-maintenance
     env: docker
     plan: free
     dockerfilePath: ./Dockerfile
+    dockerContext: .
     autoDeploy: true
-    envVars:
-      - key: PORT
-       
+    healthCheckPath: /healthz

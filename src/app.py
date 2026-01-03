@@ -10,6 +10,7 @@ from pathlib import Path
 import numpy as np
 # from src.preprocessing import load_and_preprocess
 
+# OK
 # Importer la fonction de chargement et prétraitement
 def get_model(model_type="logistic"):
     """
