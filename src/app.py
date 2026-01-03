@@ -1,6 +1,6 @@
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import joblib
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
@@ -93,7 +93,14 @@ class CycleRequest(BaseModel):
 def home():
     return {"message": "Bienvenue sur l'API de maintenance prédictive"}
 
-@app.post("/predict", summary="Prédire la condition de la valve", description="Faire une prédiction pour un cycle donné")
+
+class PredictionOutput(BaseModel):
+    Numéro_du_cycle: int = Field(..., description="Numéro du cycle analysé", example=12)
+    prédiction: str = Field(..., description="Statut prédit (Optimal, À surveiller, Critique)", example="Optimal")
+    probabilité: float = Field(..., description="Probabilité associée à la prédiction", example=0.997)
+
+@app.post("/predict", response_model=PredictionOutput, summary="Prédiction", description="Prédit l'état de la machine")
+
 def predict(request: CycleRequest):
     cycle_num = request.cycle
 
@@ -112,7 +119,7 @@ def predict(request: CycleRequest):
     proba = float(pipeline.predict_proba(cycle_features)[0][1])
 
     return {
-        "Numéro du cycle": cycle_num,
+        "Numéro_du_cycle": cycle_num,
         "prédiction": "Optimal" if prediction == 1 else "Non optimal",
         "probabilité": round(proba, 3)
     }
