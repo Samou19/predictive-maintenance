@@ -63,10 +63,11 @@ X, y = load_and_preprocess("PS2.txt", "FS1.txt", "profile.txt")
 class CycleRequest(BaseModel):
     cycle: int = Field(..., description="Numéro du cycle à prédire", example=12)
 
+
 class PredictionOutput(BaseModel):
-    Numéro_du_cycle: int = Field(..., description="Numéro du cycle analysé", example=12)
-    prédiction: str = Field(..., description="Statut prédit (Optimal, À surveiller, Critique)", example="Optimal")
-    probabilité: float = Field(..., description="Probabilité associée à la prédiction", example=0.997)
+    numero_cycle_analyse: int = Field(..., description="Numéro du cycle analysé", example=13)
+    etat_machine: str = Field(..., description="État prédit de la machine (Optimal, À surveiller, Critique)", example="Optimal")
+    probabilite_prediction: float = Field(..., description="Probabilité associée à la prédiction", example=0.987)
 
 @app.get("/", summary="Accueil", description="Page d'accueil de l'API")
 def home():
@@ -86,9 +87,9 @@ def predict(request: CycleRequest) -> PredictionOutput:
     proba = float(pipeline.predict_proba(cycle_features)[0][1])
 
     return PredictionOutput(
-        Numéro_du_cycle=cycle_num,
-        prédiction="Optimal" if prediction == 1 else "Non optimal",
-        probabilité=round(proba, 3)
+        numero_cycle_analyse=cycle_num,
+        etat_machine="Optimal" if prediction == 1 else "Non optimal",
+        probabilite_prediction=round(proba, 3)
     )
 
 if __name__ == "__main__":
