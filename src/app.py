@@ -66,14 +66,14 @@ class CycleRequest(BaseModel):
 
 class PredictionOutput(BaseModel):
     numero_cycle_analyse: int = Field(..., description="Numéro du cycle analysé", example=13)
-    etat_machine: str = Field(..., description="État prédit de la machine (Optimal, À surveiller, Critique)", example="Optimal")
+    etat_valve: str = Field(..., description="État prédit de la valve (Optimal, À surveiller, Critique)", example="Optimal")
     probabilite_prediction: float = Field(..., description="Probabilité associée à la prédiction", example=0.987)
 
 @app.get("/", summary="Accueil", description="Page d'accueil de l'API")
 def home():
     return {"message": "Bienvenue sur l'API de maintenance prédictive"}
 
-@app.post("/predict", response_model=PredictionOutput, summary="Prédiction", description="Prédit l'état de la machine")
+@app.post("/predict", response_model=PredictionOutput, summary="Prédiction", description="Prédit l'état de la valve pour un cycle donné")
 def predict(request: CycleRequest) -> PredictionOutput:
     cycle_num = request.cycle
 
@@ -88,7 +88,7 @@ def predict(request: CycleRequest) -> PredictionOutput:
 
     return PredictionOutput(
         numero_cycle_analyse=cycle_num,
-        etat_machine="Optimal" if prediction == 1 else "Non optimal",
+        etat_valve="Optimal" if prediction == 1 else "Non optimal",
         probabilite_prediction=round(proba, 3)
     )
 
