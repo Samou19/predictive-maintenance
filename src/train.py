@@ -13,7 +13,7 @@ print(f"Données chargées : {X.shape[0]} cycles, {X.shape[1]} features,\n cible
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
 
 # Choix du modèle : 'logistic', 'random_forest', 'xgboost'
-pipeline = preprocess_data(X_train, model_type="xgboost")
+pipeline = preprocess_data(X_train, model_type="random_forest")
 
 # Entraînement
 pipeline.fit(X_train, y_train)
@@ -65,33 +65,20 @@ print(df_metrics)
 # Evaluation sur 205 derniers cycles
 ################################################################    
 # Chargement des données
-X, y = load_and_preprocess("PS2.txt", "FS1.txt", "profile.txt", end=205)
-print(f"Données chargées : {X.shape[0]} cycles, {X.shape[1]} features,\n cible équilibrée : {y.value_counts().round(2)}")
+X_test_final, y_test_final = load_and_preprocess("PS2.txt", "FS1.txt", "profile.txt", end=205)
+print(f"Données chargées : {X_test_final.shape[0]} cycles, {X_test_final.shape[1]} features,\n cible équilibrée : {y_test_final.value_counts().round(2)}")
 
-# Split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
-
-# Choix du modèle : 'logistic', 'random_forest', 'xgboost'
-pipeline = preprocess_data(X_train, model_type="random_forest")
-
-# Entraînement
-pipeline.fit(X_train, y_train)
-
-# Sauvegarde
-joblib.dump(pipeline, "pipeline.pkl")
 
 # Évaluation
-y_pred = pipeline.predict(X_test)
-y_proba = pipeline.predict_proba(X_test)[:, 1]
-
-
+y_pred_final = pipeline.predict(X_test_final)
+y_proba_final = pipeline.predict_proba(X_test_final)[:, 1]
 # Calcul des métriques
 metrics = {
-    "Accuracy": accuracy_score(y_test, y_pred),
-    "F1 Score": f1_score(y_test, y_pred),
-    "Precision": precision_score(y_test, y_pred),
-    "Recall": recall_score(y_test, y_pred),
-    "ROC AUC": roc_auc_score(y_test, y_proba)
+    "Accuracy": accuracy_score(y_test_final, y_pred_final),
+    "F1 Score": f1_score(y_test_final, y_pred_final),
+    "Precision": precision_score(y_test_final, y_pred_final),
+    "Recall": recall_score(y_test_final, y_pred_final),
+    "ROC AUC": roc_auc_score(y_test_final, y_proba_final)
 }
 
 # Conversion en DataFrame avec arrondi à 3 décimales
