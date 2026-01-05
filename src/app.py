@@ -37,8 +37,10 @@ def health_check():
     return {"status": "API is running"}
 
 @app.post("/predict")
+
 def predict(cycle: CycleInput):
-    X = pd.DataFrame([cycle.dict()])
+    # Remplace .dict() par .model_dump()
+    X = pd.DataFrame([cycle.model_dump()])
 
     proba = model.predict_proba(X)[0][1]
     prediction = int(proba >= 0.5)
@@ -48,6 +50,7 @@ def predict(cycle: CycleInput):
         "label": "NON_OPTIMAL" if prediction == 1 else "OPTIMAL",
         "failure_probability": round(proba, 3)
     }
+
 
 if __name__ == "__main__":
     import uvicorn
