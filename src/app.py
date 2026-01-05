@@ -6,13 +6,17 @@ import pandas as pd
 # Schéma des données (schemas.py)
 from pydantic import BaseModel, Field
 
+
 class CycleInput(BaseModel):
-    ps2_mean: float
-    ps2_std: float
-    ps2_max: float
-    fs1_mean: float
-    fs1_std: float
-    fs1_max: float
+    ps2_mean: float = Field(..., alias="Pression PS2 (moyenne)")
+    ps2_std: float = Field(..., alias="Pression PS2 (écart type)")
+    ps2_max: float = Field(..., alias="Pression PS2 (maximum)")
+    fs1_mean: float = Field(..., alias="Débit FS1 (moyenne)")
+    fs1_std: float = Field(..., alias="Débit FS1 (écart type)")
+    fs1_max: float = Field(..., alias="Débit FS1 (maximum)")
+
+class Config:
+    populate_by_name = True  # Permet d'utiliser soit le nom, soit l'alias
 
 class PredictionOutput(BaseModel):
     prediction: int = Field(..., description="La classe prédite", example=0)

@@ -6,12 +6,12 @@ client = TestClient(app)
 
 def test_api_predict():
     payload = {
-        "ps2_mean": 12.0,
-        "ps2_std": 4.0,
-        "ps2_max": 19.0,
-        "fs1_mean": 5.0,
-        "fs1_std": 8.0,
-        "fs1_max": 3.0
+        "Pression PS2 (moyenne)": 12.0,
+        "Pression PS2 (écart type)": 4.0,
+        "Pression PS2 (maximum)": 19.0,
+        "Débit FS1 (moyenne)": 5.0,
+        "Débit FS1 (écart type)": 8.0,
+        "Débit FS1 (maximum)": 3.0
     }
     response = client.post("/predict", json=payload)
     assert response.status_code == 200
