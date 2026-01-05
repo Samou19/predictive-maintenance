@@ -107,7 +107,7 @@ def load_and_preprocess(ps2_file, fs1_file, profile_file, first=2000, end=None):
 app = FastAPI(title="API Maintenance Prédictive", description="Prédiction de la condition de la valve", version="1.0")
 
 pipeline = joblib.load("pipeline.pkl")
-X, y = load_and_preprocess("PS2.txt", "FS1.txt", "profile.txt", first=2000)
+X, y = load_and_preprocess("PS2.txt", "FS1.txt", "profile.txt", first=2205)
 
 class CycleRequest(BaseModel):
     cycle: int = Field(..., description="Numéro du cycle à prédire", example=12)
