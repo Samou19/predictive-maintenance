@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le code et les fichiers nécessaires
 COPY src/ /app/src/
-COPY pipeline.pkl /app/
+COPY best_model.pkl /app/
 COPY tests/ /app/tests/
 COPY data/*.txt /app/data/
 
