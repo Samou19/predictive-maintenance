@@ -88,7 +88,7 @@ def predict(request: CycleRequest) -> PredictionOutput:
 
     return PredictionOutput(
         numero_cycle_analyse=cycle_num,
-        etat_valve="Optimal" if prediction == 1 else "Non optimal",
+        etat_valve="Non optimal" if prediction == 1 else "Optimal",
         probabilite_prediction=round(proba, 3)
     )
 

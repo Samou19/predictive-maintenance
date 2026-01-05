@@ -1,9 +1,11 @@
 flask
 scikit-learn
 xgboost
+lightgbm
 joblib
 numpy
 pandas
 pytest
 fastapi
 uvicorn
+matplotlib
