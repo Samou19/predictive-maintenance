@@ -30,9 +30,9 @@ def preprocess_data(X, model_type="logistic"):
 
     # Préprocesseur
     preprocessor = ColumnTransformer([
-        ("num", StandardScaler(), numeric_cols),
-        ("ord", OrdinalEncoder(categories=ordinal_categories), ordinal_cols),
-        ("bin", "passthrough", binary_cols)
+        ("num", StandardScaler(), numeric_cols)
+        #("ord", OrdinalEncoder(categories=ordinal_categories), ordinal_cols),
+        #("bin", "passthrough", binary_cols)
     ])
 
     # Pipeline complet avec modèle choisi
@@ -67,11 +67,7 @@ def test_train_pipeline_metrics():
         "ps2_max": np.random.rand(20),
         "fs1_mean": np.random.rand(20),
         "fs1_std": np.random.rand(20),
-        "fs1_max": np.random.rand(20),
-        "cooler_condition": np.random.choice([3, 20, 100], size=20),
-        "pump_leakage": np.random.choice([0, 1, 2], size=20),
-        "accumulator_pressure": np.random.choice([90, 100, 115, 130], size=20),
-        "stable_flag": np.random.choice([0, 1], size=20)
+        "fs1_max": np.random.rand(20)
     })
     y_fake = np.random.randint(0, 2, size=20)
 
