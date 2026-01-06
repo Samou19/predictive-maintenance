@@ -27,13 +27,13 @@ Fichiers utilisés :
 - `requirements.txt` : dépendances
 
 
-## Modèle utilisé: XGBoost
-Après avoir testé et comparé les modèles XGBoost, régression logistique et Random Forest, XGBoost offre les meilleures performances. Les résultats obtenus sont présentés ci-dessous.
+## Modèle utilisé: RandomForest
+Après avoir testé et comparé les modèles XGBoost, Arbre de décision, régression logistique et Random Forest,  RandomForest offre les meilleures performances. Les résultats obtenus sont présentés ci-dessous.
 ### Évaluation du modèle XGBoost:
-- `Accuracy` : 0.87
+- `Accuracy` : 0.91
 - `Precision` : 1.0 
-- `Recall` : 0.80
-- `F1 Score` : 0.89
+- `Recall` : 0.86
+- `F1 Score` : 0.92
 
 ## Installation et exécution
 
@@ -61,11 +61,11 @@ curl -X 'POST' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
-  "Pression PS2 (moyenne)": 23,
-  "Pression PS2 (écart type)": 5,
-  "Pression PS2 (maximum)": 10,
-  "Débit FS1 (moyenne)": 8,
-  "Débit FS1 (écart type)": 3.9,
-  "Débit FS1 (maximum)": 1.8
+  "Pression PS2 moyenne (bar)": 0,
+  "Écart-type pression PS2 (bar)": 0,
+  "Pression PS2 maximale (bar)": 0,
+  "Débit FS1 moyen (l/min)": 0,
+  "Écart-type débit FS1 (l/min)": 0,
+  "Débit FS1 maximal (l/min)": 0
 }'
 ```

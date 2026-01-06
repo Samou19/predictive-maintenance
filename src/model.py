@@ -106,7 +106,7 @@ for name, model in models.items():
 
 pd.DataFrame(results).T
 
-best_model_name = "XGBoost"
+best_model_name = "RandomForest"
 best_model = models[best_model_name]
 
 best_model.fit(X_train, y_train)
