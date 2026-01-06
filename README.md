@@ -30,11 +30,10 @@ Fichiers utilisés :
 ## Modèle utilisé: XGBoost
 Après avoir testé et comparé les modèles XGBoost, régression logistique et Random Forest, XGBoost offre les meilleures performances. Les résultats obtenus sont présentés ci-dessous.
 ### Évaluation du modèle XGBoost:
-- `Accuracy` : 0.98
-- `Precision` : 0.981 
-- `Recall` : 0.981
-- `F1 Score` : 0.981
-- `ROC AUC` : 0.997
+- `Accuracy` : 0.87
+- `Precision` : 1.0 
+- `Recall` : 0.80
+- `F1 Score` : 0.89
 
 ## Installation et exécution
 
@@ -57,5 +56,16 @@ docker run -d -p 8000:8000 <NOM-IMAGE>:latest
 ```
 ## Exemple de requête API pour le cycle 5
 ```bash
-curl -X POST "http://localhost:8000/predict" -H "Content-Type: application/json" -d '{"cycle": 5}'
+curl -X 'POST' \
+  'https://predictive-maintenance-qy5w.onrender.com/predict' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "Pression PS2 (moyenne)": 23,
+  "Pression PS2 (écart type)": 5,
+  "Pression PS2 (maximum)": 10,
+  "Débit FS1 (moyenne)": 8,
+  "Débit FS1 (écart type)": 3.9,
+  "Débit FS1 (maximum)": 1.8
+}'
 ```
