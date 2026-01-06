@@ -54,7 +54,7 @@ http://localhost:8000/docs
 docker build -t <NOM-IMAGE> .
 docker run -d -p 8000:8000 <NOM-IMAGE>:latest
 ```
-## Exemple de requête API pour le cycle 5
+## Exemple de requête API pour le modèle XGBoost
 ```bash
 curl -X 'POST' \
   'https://predictive-maintenance-qy5w.onrender.com/predict' \
