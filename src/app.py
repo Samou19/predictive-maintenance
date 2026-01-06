@@ -8,12 +8,12 @@ from pydantic import BaseModel, Field
 
 
 class CycleInput(BaseModel):
-    ps2_mean: float = Field(..., alias="Pression PS2 (moyenne)")
-    ps2_std: float = Field(..., alias="Pression PS2 (écart type)")
-    ps2_max: float = Field(..., alias="Pression PS2 (maximum)")
-    fs1_mean: float = Field(..., alias="Débit FS1 (moyenne)")
-    fs1_std: float = Field(..., alias="Débit FS1 (écart type)")
-    fs1_max: float = Field(..., alias="Débit FS1 (maximum)")
+    ps2_mean: float = Field(..., alias="Pression PS2 moyenne (bar)")
+    ps2_std: float = Field(..., alias="Écart-type pression PS2")
+    ps2_max: float = Field(..., alias="Pression PS2 maximale")
+    fs1_mean: float = Field(..., alias="Débit FS1 moyen (l/min)")
+    fs1_std: float = Field(..., alias="Écart-type débit FS1")
+    fs1_max: float = Field(..., alias="Débit FS1 maximal")
 
 class Config:
     populate_by_name = True  # Permet d'utiliser soit le nom, soit l'alias
