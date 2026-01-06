@@ -8,10 +8,10 @@ def test_api_predict():
     payload = {
         "Pression PS2 moyenne (bar)": 12.0,
         "Écart-type pression PS2": 4.0,
-        "Pression PS2 maximale": 19.0,
+        "Pression PS2 maximale (bar)": 19.0,
         "Débit FS1 moyen (l/min)": 5.0,
         "Écart-type débit FS1": 8.0,
-        "Débit FS1 maximal": 3.0
+        "Débit FS1 maximal (l/min)": 3.0
     }
     response = client.post("/predict", json=payload)
     assert response.status_code == 200
