@@ -8,10 +8,10 @@ from pydantic import BaseModel, Field
 
 class CycleInput(BaseModel):
     ps2_mean: float = Field(..., alias="Pression PS2 moyenne (bar)")
-    ps2_std: float = Field(..., alias="Écart-type pression PS2")
+    ps2_std: float = Field(..., alias="Écart-type pression PS2 (bar)")
     ps2_max: float = Field(..., alias="Pression PS2 maximale (bar)")
     fs1_mean: float = Field(..., alias="Débit FS1 moyen (l/min)")
-    fs1_std: float = Field(..., alias="Écart-type débit FS1")
+    fs1_std: float = Field(..., alias="Écart-type débit FS1 (l/min)")
     fs1_max: float = Field(..., alias="Débit FS1 maximal (l/min)")
 
 class Config:
