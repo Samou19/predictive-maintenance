@@ -29,7 +29,7 @@ Fichiers utilisés :
 
 ## Modèle utilisé: RandomForest
 Après avoir testé et comparé les modèles XGBoost, Arbre de décision, régression logistique et Random Forest,  RandomForest offre les meilleures performances. Les résultats obtenus sont présentés ci-dessous.
-### Évaluation du modèle XGBoost:
+### Évaluation du modèle RandomForest:
 - `Accuracy` : 0.91
 - `Precision` : 1.0 
 - `Recall` : 0.86
@@ -54,7 +54,7 @@ http://localhost:8000/docs
 docker build -t <NOM-IMAGE> .
 docker run -d -p 8000:8000 <NOM-IMAGE>:latest
 ```
-## Exemple de requête API pour le modèle XGBoost
+## Exemple de requête API pour le modèle RandomForest
 ```bash
 curl -X 'POST' \
   'https://predictive-maintenance-qy5w.onrender.com/predict' \
